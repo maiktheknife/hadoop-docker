@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo "run start-hadoop"
+
 # Check user environment variable
 if [[ -z "${HDFS_USER}" ]]; then
   echo "Missing HDFS_USER environment variable" >&2
@@ -27,3 +29,5 @@ else
   echo "Invalid command '${1}'" >&2
   exit 1
 fi
+
+echo "run start-hadoop done"
