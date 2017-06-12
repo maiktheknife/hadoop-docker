@@ -54,8 +54,6 @@ COPY bin /opt/util/bin
 COPY app /opt/util/app
 ENV PATH=$PATH:/opt/util/bin
 
-# RUN chown -R hdfsuser /opt/util/app
-
 WORKDIR /opt/util/app
 
 # Fix environment for other users
