@@ -17,6 +17,8 @@ HADOOP_USER_NAME="${HDFS_USER}"
 echo "export  HADOOP_USER_NAME=\"${HDFS_USER}\"" >> /etc/bash.bashrc
 # Create user for HDFS
 adduser --no-create-home --disabled-password --gecos "" $HDFS_USER
+groupadd $HDFS_GROUP
+usermod -a -G $HDFS_GROUP $HDFS_USER
 # Fix directory permissions
 chown -R $HDFS_USER:$HDFS_GROUP /opt/hdfs
 chown -R $HDFS_USER:$HDFS_GROUP $HADOOP_HOME
