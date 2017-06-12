@@ -3,32 +3,36 @@ MAINTAINER maiktheknife
 
 # Version
 ENV HADOOP_VERSION=2.8.0
+ENV MAVEN_VERSION=3.5.0
 
 # Set home
 ENV HADOOP_HOME=/usr/local/hadoop-$HADOOP_VERSION
+ENV M2_HOME=/usr/local/maven/maven-$MAVEN_VERSION
 
 # Install dependencies
 RUN apt-get update \
-  && DEBIAN_FRONTEND=noninteractive apt-get install \
-    -yq --no-install-recommends netcat \
+  && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends netcat \
   && apt-get clean \
-	&& rm -rf /var/lib/apt/lists/*
+  && rm -rf /var/lib/apt/lists/*
 
 # Install Hadoop
 RUN mkdir -p "${HADOOP_HOME}" \
   && export ARCHIVE=hadoop-$HADOOP_VERSION.tar.gz \
-  && export DOWNLOAD_PATH=apache/hadoop/common/hadoop-$HADOOP_VERSION/$ARCHIVE \
-  && curl -sSL https://mirrors.ocf.berkeley.edu/$DOWNLOAD_PATH | \
-    tar -xz -C $HADOOP_HOME --strip-components 1 \
+  && curl -s http://www.eu.apache.org/dist/hadoop/common/hadoop-$HADOOP_VERSION/$ARCHIVE | tar -xz -C $HADOOP_HOME --strip-components 1 \
+  && rm -rf $ARCHIVE
+
+RUN mkdir -p "${M2_HOME}" \
+  && export ARCHIVE=apache-maven-$MAVEN_VERSION-bin.tar.gz \
+  && curl -s http://www-eu.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/$ARCHIVE | tar -xz -C $M2_HOME --strip-components 1 \
   && rm -rf $ARCHIVE
 
 # HDFS volume
 VOLUME /opt/hdfs
 
 # Set paths
-ENV HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop \
-  HADOOP_LIBEXEC_DIR=$HADOOP_HOME/libexec \
-  PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
+ENV HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
+ENV HADOOP_LIBEXEC_DIR=$HADOOP_HOME/libexec
+ENV PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$M2_HOME/bin
 
 # Copy and fix configuration files
 COPY /conf/*.xml $HADOOP_CONF_DIR/
