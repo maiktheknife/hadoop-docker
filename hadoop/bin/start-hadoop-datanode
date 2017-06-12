@@ -2,7 +2,7 @@
 
 # Starts the Hadoop data node. Expects the name node host and the daemon flag
 # as parameters
-
+echo "run start-hadoop-datanode"
 source /etc/bash.bashrc
 
 if [[ -z "${1}" ]]; then
@@ -19,3 +19,5 @@ hadoop-daemon.sh start datanode
 if [[ "${2}" != 'daemon' ]]; then
   sleep infinity
 fi
+
+echo "run start-hadoop-datanode done"

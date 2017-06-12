@@ -3,7 +3,7 @@
 # Starts the Hadoop name node. Expects the daemon flag as a parameter
 
 source /etc/bash.bashrc
-
+echo "run start-hadoop-namenode"
 # Format namenode
 if [ ! -f /opt/hdfs/name/current/VERSION ]; then
   hdfs namenode -format -force
@@ -16,3 +16,4 @@ hdfs dfs -chown $HDFS_USER:$HDFS_GROUP /
 if [[ "${1}" != 'daemon' ]]; then
   sleep infinity
 fi
+echo "run start-hadoop-namenode done"
