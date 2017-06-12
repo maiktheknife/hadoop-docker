@@ -1,4 +1,4 @@
-version: "2"
+version: "3"
 
 services:
   namenode:
@@ -15,10 +15,11 @@ services:
       - "10020:10020"
       - "13562:13562"
       - "19888:19888"
+
   datanode:
     build: ./hadoop
     command: start-hadoop datanode namenode
     environment:
       HDFS_USER: hdfsuser
-    links:
+    depends_on:
       - namenode
