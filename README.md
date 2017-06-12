@@ -2,6 +2,7 @@
 
 An [Apache Hadoop](http://hadoop.apache.org) container image. This image is meant to be used for creating a standalone cluster with multiple DataNodes.
 
+
 # Setup
 ```sh
 git config core.eol lf

@@ -5,10 +5,7 @@
 echo "run start-hadoop-namenode"
 
 source /etc/bash.bashrc
-
-# Replace namenode host in core-site.xml
-sed -i.bak "s|\[NAMENODE_HOST\]|$(hostname)|g" $HADOOP_CONF_DIR/core-site.xml
-rm -f $HADOOP_CONF_DIR/core-site.xml.bak
+echo "run start-hadoop-namenode"
 # Format namenode
 if [ ! -f /opt/hdfs/name/current/VERSION ]; then
   hdfs namenode -format -force
@@ -21,5 +18,4 @@ hdfs dfs -chown $HDFS_USER:$HDFS_GROUP /
 if [[ "${1}" != 'daemon' ]]; then
   sleep infinity
 fi
-
 echo "run start-hadoop-namenode done"

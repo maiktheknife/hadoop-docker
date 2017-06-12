@@ -6,3 +6,9 @@
 
 hdfs dfs -put data.txt /data.txt
 hdfs dfs -ls /
+
+## new
+hdfs dfs -mkdir /inputdir
+hdfs dfs -mkdir /outputdir
+hdfs dfs -put sample.txt /inputdir
+hdfs dfs -ls /inputdir
