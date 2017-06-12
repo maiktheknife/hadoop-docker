@@ -2,6 +2,13 @@
 
 An [Apache Hadoop](http://hadoop.apache.org) container image. This image is meant to be used for creating a standalone cluster with multiple DataNodes.
 
+
+# Setup
+```sh
+git config core.eol lf
+git config core.autocrlf input
+```
+
 ## Custom commands
 
 This image contains a script named `start-hadoop` (included in the PATH). This script is used to initialize NamaNodes and DataNodes.
