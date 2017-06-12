@@ -5,14 +5,19 @@ if [[ -z "${HDFS_USER}" ]]; then
   echo "Missing HDFS_USER environment variable" >&2
   exit 1
 fi
+if [[ -z "${HDFS_GROUP}" ]]; then
+  echo "Missing HDFS_GROUP environment variable" >&2
+  echo "Using default HDFS_GROUP as HDFS_USER" >&2
+  export HDFS_GROUP=$HDFS_USER
+fi
 # Set HADOOP_USER_NAME environment vairable
 HADOOP_USER_NAME="${HDFS_USER}"
 echo "export  HADOOP_USER_NAME=\"${HDFS_USER}\"" >> /etc/bash.bashrc
 # Create user for HDFS
 adduser --no-create-home --disabled-password --gecos "" $HDFS_USER
 # Fix directory permissions
-chown -R $HDFS_USER:$HDFS_USER /opt/hdfs
-chown -R $HDFS_USER:$HDFS_USER $HADOOP_HOME
+chown -R $HDFS_USER:$HDFS_GROUP /opt/hdfs
+chown -R $HDFS_USER:$HDFS_GROUP $HADOOP_HOME
 # Select node type
 if [[ "${1}" = 'namenode' ]]; then
   su $HDFS_USER -c "/opt/util/bin/start-hadoop-namenode $2"

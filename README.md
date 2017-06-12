@@ -2,8 +2,6 @@
 
 An [Apache Hadoop](http://hadoop.apache.org) container image. This image is meant to be used for creating a standalone cluster with multiple DataNodes.
 
-- [`2.7` (Dockerfile)](https://github.com/SingularitiesCR/hadoop-docker/blob/2.7/Dockerfile)
-
 ## Custom commands
 
 This image contains a script named `start-hadoop` (included in the PATH). This script is used to initialize NamaNodes and DataNodes.
@@ -42,34 +40,7 @@ start-hadoop datanode [NameNode] daemon
 
 ## Creating a cluster with Docker Compose
 
-The easiest way to create a standalone cluster with this image is by using [Docker Compose](https://docs.docker.com/compose). The following snippet can be used as a `docker-compose.yml` for a simple cluster:
-
-```YAML
-version: "2"
-
-services:
-  namenode:
-    image: singularities/hadoop
-    command: start-hadoop namenode
-    hostname: namenode
-    environment:
-      HDFS_USER: hdfsuser
-    ports:
-      - "8020:8020"
-      - "14000:14000"
-      - "50070:50070"
-      - "50075:50075"
-      - "10020:10020"
-      - "13562:13562"
-      - "19888:19888"
-  datanode:
-    image: singularities/hadoop
-    command: start-hadoop datanode namenode
-    environment:
-      HDFS_USER: hdfsuser
-    links:
-      - namenode
-```
+The easiest way to create a standalone cluster with this image is by using [Docker Compose](https://docs.docker.com/compose) with `docker-compose.yml` for a simple cluster.
 
 ### Persistence
 

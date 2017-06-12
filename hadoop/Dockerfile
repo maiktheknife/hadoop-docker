@@ -1,5 +1,5 @@
 FROM openjdk:8-jre
-MAINTAINER Singularities
+MAINTAINER maiktheknife
 
 # Version
 ENV HADOOP_VERSION=2.8.0
@@ -43,13 +43,16 @@ RUN sed -i.bak "s/hadoop-daemons.sh/hadoop-daemon.sh/g" \
 EXPOSE 8020 14000 50070 50470
 
 # MapReduce
-EXPOSE 10020 13562	19888
+EXPOSE 10020 13562 19888
 
-# Copy start scripts
-COPY start-hadoop /opt/util/bin/start-hadoop
-COPY start-hadoop-namenode /opt/util/bin/start-hadoop-namenode
-COPY start-hadoop-datanode /opt/util/bin/start-hadoop-datanode
+# Copy start scripts and data
+COPY bin /opt/util/bin
+COPY app /opt/util/app
 ENV PATH=$PATH:/opt/util/bin
+
+# RUN chown -R hdfsuser /opt/util/app
+
+WORKDIR /opt/util/app
 
 # Fix environment for other users
 RUN echo "export HADOOP_HOME=$HADOOP_HOME" > /etc/bash.bashrc.tmp \
