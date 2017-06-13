@@ -4,10 +4,12 @@ MAINTAINER maiktheknife
 # Version
 ENV HADOOP_VERSION=2.8.0
 ENV MAVEN_VERSION=3.5.0
+ENV PYTHON_VERSION=3.6.1
 
 # Set home
 ENV HADOOP_HOME=/usr/local/hadoop/hadoop-$HADOOP_VERSION
 ENV M2_HOME=/usr/local/maven/maven-$MAVEN_VERSION
+ENV PYTHON_HOME=/usr/local/python/python-$PYTHON_VERSION
 
 # Install dependencies
 RUN apt-get update \
@@ -26,9 +28,15 @@ RUN mkdir -p "${M2_HOME}" \
   && curl -s http://www-eu.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/$ARCHIVE | tar -xz -C $M2_HOME --strip-components 1 \
   && rm -rf $ARCHIVE
 
+RUN mkdir -p "${PYTHON_HOME}" \
+  && export ARCHIVE=Python-$PYTHON_VERSION.tgz \
+  && curl -sSL https://www.python.org/ftp/python/$PYTHON_VERSION/$ARCHIVE | tar -xz -C $PYTHON_HOME --strip-components 1 \
+  && rm -rf $ARCHIVE
+
 # versionless links
 RUN ln -s $HADOOP_HOME /usr/local/hadoop/current
 RUN ln -s $M2_HOME /usr/local/maven/current
+RUN ln -s $PYTHON_HOME /usr/local/python/current
 
 # HDFS volume
 VOLUME /opt/hdfs
