@@ -8,6 +8,8 @@ services:
     environment:
       HDFS_USER: hdfsuser
       HDFS_GROUP: hdfsgroup
+    volumes:
+      - vh:/opt/hdfs
     ports:
       - "8020:8020"
       - "14000:14000"
@@ -25,3 +27,8 @@ services:
       HDFS_GROUP: hdfsgroup
     depends_on:
       - namenode
+#    deploy:
+#      replicas: 3
+
+volumes:
+  vh:
