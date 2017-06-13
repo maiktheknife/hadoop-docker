@@ -40,11 +40,9 @@ ENV PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$M2_HOME/bin
 
 # Copy and fix configuration files
 COPY /conf/*.xml $HADOOP_CONF_DIR/
-RUN sed -i.bak "s/hadoop-daemons.sh/hadoop-daemon.sh/g" \
-    $HADOOP_HOME/sbin/start-dfs.sh \
+RUN sed -i.bak "s/hadoop-daemons.sh/hadoop-daemon.sh/g" $HADOOP_HOME/sbin/start-dfs.sh \
   && rm -f $HADOOP_HOME/sbin/start-dfs.sh.bak \
-  && sed -i.bak "s/hadoop-daemons.sh/hadoop-daemon.sh/g" \
-    $HADOOP_HOME/sbin/stop-dfs.sh \
+  && sed -i.bak "s/hadoop-daemons.sh/hadoop-daemon.sh/g" $HADOOP_HOME/sbin/stop-dfs.sh \
   && rm -f $HADOOP_HOME/sbin/stop-dfs.sh.bak
 
 # HDFS
