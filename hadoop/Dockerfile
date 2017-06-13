@@ -6,7 +6,7 @@ ENV HADOOP_VERSION=2.8.0
 ENV MAVEN_VERSION=3.5.0
 
 # Set home
-ENV HADOOP_HOME=/usr/local/hadoop-$HADOOP_VERSION
+ENV HADOOP_HOME=/usr/local/hadoop/hadoop-$HADOOP_VERSION
 ENV M2_HOME=/usr/local/maven/maven-$MAVEN_VERSION
 
 # Install dependencies
@@ -15,7 +15,7 @@ RUN apt-get update \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
-# Install Hadoop
+# Install Hadoop and Maven
 RUN mkdir -p "${HADOOP_HOME}" \
   && export ARCHIVE=hadoop-$HADOOP_VERSION.tar.gz \
   && curl -s http://www.eu.apache.org/dist/hadoop/common/hadoop-$HADOOP_VERSION/$ARCHIVE | tar -xz -C $HADOOP_HOME --strip-components 1 \
@@ -25,6 +25,10 @@ RUN mkdir -p "${M2_HOME}" \
   && export ARCHIVE=apache-maven-$MAVEN_VERSION-bin.tar.gz \
   && curl -s http://www-eu.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/$ARCHIVE | tar -xz -C $M2_HOME --strip-components 1 \
   && rm -rf $ARCHIVE
+
+# versionless links
+RUN ln -s $HADOOP_HOME /usr/local/hadoop/current
+RUN ln -s $M2_HOME /usr/local/maven/current
 
 # HDFS volume
 VOLUME /opt/hdfs
