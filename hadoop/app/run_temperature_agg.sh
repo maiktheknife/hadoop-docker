@@ -16,3 +16,5 @@ mvn clean package
 
 hadoop jar target/hadoop-prototyp-1.0-SNAPSHOT.jar de.menzel.hadoop.temperature.TemperatureAggregator hdfs://namenode:8020/years hdfs://namenode:8020/years_out
 
+hdfs dfs -copyToLocal /years_out/part-r-*
+more part-r-00000
