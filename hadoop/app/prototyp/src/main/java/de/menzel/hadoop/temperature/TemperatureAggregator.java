@@ -2,6 +2,7 @@ package de.menzel.hadoop.temperature;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
@@ -24,13 +25,13 @@ public class TemperatureAggregator {
 		Job job = Job.getInstance(conf, "temperature aggregator");
 		job.setJarByClass(TemperatureAggregator.class);
 		job.setMapperClass(TempMapper.class);
-		job.setCombinerClass(TempReducer.class);
 		job.setReducerClass(TempReducer.class);
-		job.setOutputKeyClass(Text.class);
-		job.setOutputValueClass(IntWritable.class);
 
-//		String inputPath = "hdfs://namenode:8020/years";
-//		String outputPath = "hdfs://namenode:8020/years_out";
+		job.setMapOutputKeyClass(Text.class);
+		job.setMapOutputValueClass(IntWritable.class);
+
+		job.setOutputKeyClass(Text.class);
+		job.setOutputValueClass(DoubleWritable.class);
 
 		String inputPath = args[0];
 		String outputPath = args[1];
