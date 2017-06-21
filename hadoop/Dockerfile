@@ -20,7 +20,8 @@ RUN yum clean all; \
 # Update libselinux
 RUN yum update -y libselinux
 
-# Install Hadoop and Maven
+# Install Hadoop
+# COPY hadoop-$HADOOP_VERSION.tar.gz /tmp
 RUN mkdir -p "${HADOOP_HOME}" \
   && export ARCHIVE=hadoop-$HADOOP_VERSION.tar.gz \
   && curl -s http://www.eu.apache.org/dist/hadoop/common/hadoop-$HADOOP_VERSION/$ARCHIVE | tar -xz -C $HADOOP_HOME --strip-components 1 \
@@ -61,9 +62,9 @@ COPY app /opt/util/app
 ENV PATH=$PATH:/opt/util/bin
 
 # Fix permissions
-RUN chown -R $HADOOP_USER.$HADOOP_USER /opt/hdfs
-RUN chown -R $HADOOP_USER.$HADOOP_USER $HADOOP_HOME
-RUN chown -R $HADOOP_USER.$HADOOP_USER /opt/util/app
+RUN mkdir -p /opt/hdfs
+RUN chown -R $HADOOP_USER:$HADOOP_USER $HADOOP_HOME
+RUN chown -R $HADOOP_USER:$HADOOP_USER /opt/util/app
 
 WORKDIR /opt/util/app
 

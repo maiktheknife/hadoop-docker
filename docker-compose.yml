@@ -26,16 +26,16 @@ services:
 
   datanode:
     build: ./hadoop
-    command: start-hadoop datanode namenode
+    command: start-hadoop datanode
     environment:
       HDFS_USER: hdfsuser
     depends_on:
       - namenode
-    volumes:
-      - dh:/opt/hdfs/
-      - dh:/usr/local/hadoop/current/logs/
+#    volumes:
+#      - dh:/opt/hdfs/
+#      - dh:/usr/local/hadoop/current/logs/
 #    deploy:
 #      replicas: 3
-
-volumes:
-  dh:
+#
+#volumes:
+#  dh:
