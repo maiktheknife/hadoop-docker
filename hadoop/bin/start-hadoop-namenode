@@ -4,18 +4,25 @@
 
 echo "run start-hadoop-namenode"
 
-source /etc/bash.bashrc
+source /etc/bashrc
 echo "run start-hadoop-namenode"
 # Format namenode
 if [ ! -f /opt/hdfs/name/current/VERSION ]; then
   hdfs namenode -format -force
 fi
+
 # Start HDFS service
 start-dfs.sh
+
+# Start YARN service
+start-yarn.sh
+
 # Fix permissions for root directory
-hdfs dfs -chown $HDFS_USER:$HDFS_GROUP /
+hdfs dfs -chown $HADOOP_USER:$HADOOP_USER /
+
 # Start daemon if specified
 if [[ "${1}" != 'daemon' ]]; then
   sleep infinity
 fi
+
 echo "run start-hadoop-namenode done"

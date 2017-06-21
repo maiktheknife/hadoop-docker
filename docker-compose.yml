@@ -7,12 +7,16 @@ services:
     hostname: namenode
     environment:
       HDFS_USER: hdfsuser
-      HDFS_GROUP: hdfsgroup
     volumes:
       - /d/docker/hdfs:/opt/hdfs/
       - /d/docker/logs:/usr/local/hadoop/current/logs/
     ports:
+      - "22:22"
       - "8020:8020"
+      - "8032:8032"
+      - "8033:8033"
+      - "8040:8040"
+      - "8088:8088"
       - "14000:14000"
       - "50070:50070"
       - "50075:50075"
@@ -25,7 +29,6 @@ services:
     command: start-hadoop datanode namenode
     environment:
       HDFS_USER: hdfsuser
-      HDFS_GROUP: hdfsgroup
     depends_on:
       - namenode
     volumes:
