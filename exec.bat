@@ -1,1 +1,1 @@
-docker-compose exec --user hdfsuser namenode bash
+docker-compose exec --user hadoop namenode bash

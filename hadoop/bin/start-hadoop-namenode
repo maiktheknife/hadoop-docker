@@ -1,21 +1,25 @@
 #!/usr/bin/env bash
 
 # Starts the Hadoop name node. Expects the daemon flag as a parameter
-
 echo "run start-hadoop-namenode"
 
-source /etc/bash.bashrc
-echo "run start-hadoop-namenode"
 # Format namenode
 if [ ! -f /opt/hdfs/name/current/VERSION ]; then
   hdfs namenode -format -force
 fi
+
 # Start HDFS service
-start-dfs.sh
+hadoop-daemon.sh --config $HADOOP_CONF_DIR start namenode
+
+# Start YARN service
+yarn-daemon.sh --config $HADOOP_CONF_DIR start resourcemanager
+
 # Fix permissions for root directory
-hdfs dfs -chown $HDFS_USER:$HDFS_GROUP /
+hdfs dfs -chown $HADOOP_USER:$HADOOP_USER /
+
 # Start daemon if specified
 if [[ "${1}" != 'daemon' ]]; then
   sleep infinity
 fi
+
 echo "run start-hadoop-namenode done"
