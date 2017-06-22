@@ -1,20 +1,20 @@
 #!/usr/bin/env bash
 
-# Starts the Hadoop data node. Expects the name node host and the daemon flag
-# as parameters
+# Starts the Hadoop data node. Expects the daemon flag as parameters
 echo "run start-hadoop-datanode"
-source /etc/bashrc
 
 # Wait for the name node to be online
 while ! nc -w 2 namenode 50070 </dev/null; do
-  sleep 3;
+  sleep 1;
+  echo "hadoop namenode not yet reachable, sleep 1"
 done;
+echo "now reachable, statuscode:  $(curl --write-out %{http_code} --silent --output /dev/null namenode:50070)"
 
 # Start HDFS data node
-hadoop-daemon.sh start datanode
+hadoop-daemon.sh --config $HADOOP_CONF_DIR start datanode
 
 # Start YARN node manager
-yarn-daemons.sh start nodemanager
+yarn-daemon.sh --config $HADOOP_CONF_DIR start nodemanager
 
 # Start daemon if specified
 if [[ "${1}" != 'daemon' ]]; then
