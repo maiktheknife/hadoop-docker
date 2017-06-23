@@ -15,7 +15,7 @@ import java.util.stream.StreamSupport;
  * Created by Max on 20.06.2017.
  */
 public class TempReducer extends Reducer<Text, IntWritable, Text, DoubleWritable> {
-	private static Logger LOG = LoggerFactory.getLogger(TempReducer.class);
+	private static final Logger LOG = LoggerFactory.getLogger(TempReducer.class);
 
 	private DoubleWritable doubleWritable = new DoubleWritable();
 
@@ -39,8 +39,9 @@ public class TempReducer extends Reducer<Text, IntWritable, Text, DoubleWritable
 			return count > 0 ? ((double) total) / count : 0;
 		}
 
-		public void accept(int i) {
-			total += i;
+		@Override
+		public void accept(int value) {
+			total += value;
 			count++;
 		}
 

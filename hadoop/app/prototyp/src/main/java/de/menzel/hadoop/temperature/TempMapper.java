@@ -14,7 +14,7 @@ import java.util.StringTokenizer;
  */
 public class TempMapper extends Mapper<Object, Text, Text, IntWritable> {
 
-	private static Logger LOG = LoggerFactory.getLogger(TempMapper.class);
+	private static final Logger LOG = LoggerFactory.getLogger(TempMapper.class);
 
 	@Override
 	protected void map(Object key, Text value, Context context) throws IOException, InterruptedException {

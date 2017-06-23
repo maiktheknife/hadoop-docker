@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
  */
 public class TemperatureAggregator {
 
-	private static Logger LOG = LoggerFactory.getLogger(TemperatureAggregator.class);
+	private static final Logger LOG = LoggerFactory.getLogger(TemperatureAggregator.class);
 
 	public static void main(String[] args) throws Exception {
 		LOG.info("Start main");
