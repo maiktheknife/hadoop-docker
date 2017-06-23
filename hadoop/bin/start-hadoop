@@ -9,6 +9,7 @@ if [[ -z "${HADOOP_USER}" ]]; then
 fi
 
 chown -R $HADOOP_USER:$HADOOP_USER /opt/hdfs
+chown -R $HADOOP_USER:$HADOOP_USER /usr/local/hadoop
 
 # Select node type
 if [[ "${1}" = 'namenode' ]]; then

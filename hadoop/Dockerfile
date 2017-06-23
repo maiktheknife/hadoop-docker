@@ -61,9 +61,9 @@ COPY app /opt/util/app
 ENV PATH=$PATH:/opt/util/bin
 
 # Fix permissions
-RUN mkdir -p /opt/hdfs
-RUN chown -R $HADOOP_USER:$HADOOP_USER $HADOOP_HOME
-RUN chown -R $HADOOP_USER:$HADOOP_USER /opt/hdfs
+#RUN mkdir -p /opt/hdfs
+#RUN chown -R $HADOOP_USER:$HADOOP_USER $HADOOP_HOME
+#RUN chown -R $HADOOP_USER:$HADOOP_USER /opt/hdfs
 RUN chown -R $HADOOP_USER:$HADOOP_USER /opt/util/app
 
 WORKDIR /opt/util/app
@@ -80,8 +80,8 @@ RUN chmod 600 /home/$HADOOP_USER/.ssh/config
 RUN chown $HADOOP_USER.$HADOOP_USER /home/$HADOOP_USER/.ssh/config
 
 # Fix environment for other users
-RUN echo "export HADOOP_HOME=$HADOOP_HOME" > /etc/bashrc.tmp \
-    && echo "export HADOOP_USER=$HADOOP_USER" > /etc/bashrc.tmp \
-    && echo "export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:/opt/util/bin" >> /etc/bashrc.tmp \
-    && cat /etc/bashrc >> /etc/bashrc.tmp \
-    && mv -f /etc/bashrc.tmp /etc/bashrc
+#RUN echo "export HADOOP_HOME=$HADOOP_HOME" > /etc/bashrc.tmp \
+#    && echo "export HADOOP_USER=$HADOOP_USER" > /etc/bashrc.tmp \
+#    && echo "export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:/opt/util/bin" >> /etc/bashrc.tmp \
+#    && cat /etc/bashrc >> /etc/bashrc.tmp \
+#    && mv -f /etc/bashrc.tmp /etc/bashrc
