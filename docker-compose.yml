@@ -2,14 +2,14 @@ version: "3"
 
 services:
   namenode:
-    build: ./hadoop
+    image: maiktheknife/hadoop
     command: start-hadoop namenode
     hostname: namenode
     environment:
       HDFS_USER: hdfsuser
     volumes:
-      - /d/docker/hdfs:/opt/hdfs/
-      - /d/docker/logs:/usr/local/hadoop/current/logs/
+#      - /d/docker/hadoop/hdfs:/opt/hdfs/
+      - /d/docker/hadoop/logs:/usr/local/hadoop/current/logs/
     ports:
       - "22:22"
       - "8020:8020"
@@ -25,7 +25,7 @@ services:
       - "19888:19888"
 
   datanode:
-    build: ./hadoop
+    image: maiktheknife/hadoop
     command: start-hadoop datanode
     environment:
       HDFS_USER: hdfsuser
@@ -36,6 +36,18 @@ services:
 #      - dh:/usr/local/hadoop/current/logs/
 #    deploy:
 #      replicas: 3
+
+  spark:
+    image: maiktheknife/spark
+    command: start-spark master
+    hostname: sparkmaster
+    ports:
+      - "6066:6066"
+      - "7070:7070"
+      - "8080:8080"
+      - "50080:50070"
+    volumes:
+      - /d/docker/spark/logs:/usr/local/spark/current/logs/
 #
 #volumes:
 #  dh:
