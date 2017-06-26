@@ -16,8 +16,7 @@ if __name__ == "__main__":
 
 	sc.textFile(input_file) \
 		.flatMap(lambda line: re.split("[ ,;.:\-!?\t\n]+", line)) \
-		.map(lambda word: word.strip()) \
-		.filter(lambda word: True if word else False) \
+		.filter(lambda word: True if word.strip() else False) \
 		.map(lambda word: (word, 1)) \
 		.reduceByKey(lambda v1, v2: v1 + v2) \
 		.saveAsTextFile(output_file)
