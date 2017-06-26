@@ -10,14 +10,17 @@ if __name__ == "__main__":
 	conf = SparkConf().setAppName("Spark Count")
 	sc = SparkContext(conf=conf)
 
+	input_file = sys.argv[1]
+	output_file = sys.argv[2]
+
 	# read in text file and split each document into words
-	words = sc.textFile(sys.argv[1]) \
+	words = sc.textFile(input_file) \
 		.flatMap(lambda line: line.split(" ")) \
 		.map(lambda word: (word, 1)) \
-		.reduceByKey(lambda v1, v2: v1 + v2) \
-		.collect()
+		.reduceByKey(lambda v1, v2: v1 + v2)
 
-	print repr(words)[1:-1]
+	words.saveAsTextFile(output_file)
+	# print repr(words)[1:-1]
 
 #
 # import sys
