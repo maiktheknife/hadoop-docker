@@ -8,8 +8,9 @@ if [[ -z "${HADOOP_USER}" ]]; then
   exit 1
 fi
 
-chown -R $HADOOP_USER:$HADOOP_USER /opt/hdfs
-chown -R $HADOOP_USER:$HADOOP_USER /usr/local/hadoop
+# FIX permissions if necessary
+find /opt/hdfs/ -not -user $HADOOP_USER -execdir chown $HADOOP_USER:$HADOOP_USER {} \+
+find /usr/local/hadoop -not -user $HADOOP_USER -execdir chown $HADOOP_USER:$HADOOP_USER {} \+
 
 # Select node type
 if [[ "${1}" = 'namenode' ]]; then

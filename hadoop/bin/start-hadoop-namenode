@@ -8,10 +8,10 @@ if [ ! -f /opt/hdfs/name/current/VERSION ]; then
   hdfs namenode -format -force
 fi
 
-# Start HDFS service
+# Start HDFS data node
 hadoop-daemon.sh --config $HADOOP_CONF_DIR start namenode
 
-# Start YARN service
+# Start YARN resource manager
 yarn-daemon.sh --config $HADOOP_CONF_DIR start resourcemanager
 
 # Fix permissions for root directory

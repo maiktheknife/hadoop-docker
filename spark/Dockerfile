@@ -23,5 +23,6 @@ EXPOSE 6066 7077 8080 8081
 
 # Copy start script
 COPY app /opt/util/app
+RUN chown -R $HADOOP_USER:$HADOOP_USER /opt/util/app
 COPY bin /opt/util/bin
-COPY conf /$SPARK_HOME/conf/
+COPY conf $SPARK_HOME/conf/
