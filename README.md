@@ -8,6 +8,7 @@ It's not useful to run a single image, better create a Cluster with Docker Compo
 git config core.eol lf
 git config core.autocrlf input
 ```
+___
 
 ## Custom commands
 This image contains a script named `start-hadoop` (included in the PATH). 
@@ -33,6 +34,8 @@ To start a DataNode/NodeManager at the same Container run the following command:
 start-hadoop datanode [daemon]
 ```
 
+___
+
 ## Creating a standalone cluster with Docker Compose
 The easiest way to create a standalone cluster with this image is by using [Docker Compose](https://docs.docker.com/compose) with `docker-compose.yml`.
 ### Start 
@@ -55,9 +58,13 @@ To stop the whole Cluster run the following command:
 docker-compose down --remove-orphans
 ```
 
+___
+
 ## Creating a multiple host cluster with Docker Swarm
 
 TODO
+
+___
 
 ## Persistence
 
