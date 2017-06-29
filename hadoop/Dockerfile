@@ -15,7 +15,7 @@ ENV HADOOP_HOME=/usr/local/hadoop/hadoop-$HADOOP_VERSION
 # Install dev tools
 RUN yum clean all; \
     rpm --rebuilddb; \
-    yum install -y curl which tar sudo openssh-server openssh-clients rsync nc maven
+    yum install -y curl which tar sudo openssh-server openssh-clients rsync nc
 
 # Update libselinux
 RUN yum update -y libselinux
@@ -55,18 +55,14 @@ EXPOSE 10020 13562 19888
 # YARN
 EXPOSE 22 8032 8033 8042 8088
 
-# Copy start scripts and data
+# Copy start scripts
 COPY bin /opt/util/bin
-COPY app /opt/util/app
 ENV PATH=$PATH:/opt/util/bin
 
 # Fix permissions
 RUN mkdir -p /opt/hdfs
 RUN chown -R $HADOOP_USER:$HADOOP_USER /usr/local/hadoop/
 RUN chown -R $HADOOP_USER:$HADOOP_USER /opt/hdfs
-RUN chown -R $HADOOP_USER:$HADOOP_USER /opt/util/app
-
-WORKDIR /opt/util/app
 
 # passwordless ssh
 RUN mkdir -p /home/$HADOOP_USER/.ssh

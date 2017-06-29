@@ -6,7 +6,7 @@ services:
     command: start-hadoop namenode
     hostname: namenode
     volumes:
-      - /c/docker/hadoop/logs:/usr/local/hadoop/current/logs/
+      - /d/docker/hadoop/logs:/usr/local/hadoop/current/logs/
     ports:
       - "8020:8020"
       - "14000:14000"
@@ -21,7 +21,7 @@ services:
     command: start-hadoop resourcemanager
     hostname: resourcemanager
     volumes:
-      - /c/docker/yarn/logs:/usr/local/hadoop/current/logs/
+      - /d/docker/yarn/logs:/usr/local/hadoop/current/logs/
     ports:
       - "8032:8032"
       - "8033:8033"
@@ -44,4 +44,12 @@ services:
       - "8080:8080"
       - "50080:50070"
     volumes:
-      - /c/docker/spark/logs:/usr/local/spark/current/logs/
+      - /d/docker/spark/logs:/usr/local/spark/current/logs/
+    depends_on:
+      - resourcemanager
+
+  testapp:
+    image: maiktheknife/testapp
+    tty: true # keep container without running main process
+    depends_on:
+      - spark
