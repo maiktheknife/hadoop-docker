@@ -8,4 +8,4 @@ cd ..\spark
 call docker-build.bat
 
 cd ..
-docker-compose up --remove-orphans
+docker-compose up --remove-orphans --scale datanode_nodemanager=3
