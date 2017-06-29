@@ -11,9 +11,6 @@ fi
 # Start HDFS data node
 hadoop-daemon.sh --config $HADOOP_CONF_DIR start namenode
 
-# Start YARN resource manager
-yarn-daemon.sh --config $HADOOP_CONF_DIR start resourcemanager
-
 # Fix permissions for root directory
 hdfs dfs -chown $HADOOP_USER:$HADOOP_USER /
 
@@ -21,5 +18,3 @@ hdfs dfs -chown $HADOOP_USER:$HADOOP_USER /
 if [[ "${1}" != 'daemon' ]]; then
   sleep infinity
 fi
-
-echo "run start-hadoop-namenode done"

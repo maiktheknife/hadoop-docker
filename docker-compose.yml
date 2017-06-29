@@ -6,14 +6,9 @@ services:
     command: start-hadoop namenode
     hostname: namenode
     volumes:
-      - /d/docker/hadoop/logs:/usr/local/hadoop/current/logs/
+      - /c/docker/hadoop/logs:/usr/local/hadoop/current/logs/
     ports:
-      - "22:22"
       - "8020:8020"
-      - "8032:8032"
-      - "8033:8033"
-      - "8040:8040"
-      - "8088:8088"
       - "14000:14000"
       - "50070:50070"
       - "50075:50075"
@@ -21,13 +16,23 @@ services:
       - "13562:13562"
       - "19888:19888"
 
-  datanode:
+  resourcemanager:
+    image: maiktheknife/hadoop
+    command: start-hadoop resourcemanager
+    hostname: resourcemanager
+    volumes:
+      - /c/docker/yarn/logs:/usr/local/hadoop/current/logs/
+    ports:
+      - "8032:8032"
+      - "8033:8033"
+      - "8040:8040"
+      - "8088:8088"
+
+  datanode_nodemanager:
     image: maiktheknife/hadoop
     command: start-hadoop datanode
     depends_on:
       - namenode
-#    volumes:
-#      - dh:/usr/local/hadoop/current/logs/
 
   spark:
     image: maiktheknife/spark
@@ -39,4 +44,4 @@ services:
       - "8080:8080"
       - "50080:50070"
     volumes:
-      - /d/docker/spark/logs:/usr/local/spark/current/logs/
+      - /c/docker/spark/logs:/usr/local/spark/current/logs/

@@ -20,5 +20,3 @@ yarn-daemon.sh --config $HADOOP_CONF_DIR start nodemanager
 if [[ "${1}" != 'daemon' ]]; then
   sleep infinity
 fi
-
-echo "run start-hadoop-datanode done"
