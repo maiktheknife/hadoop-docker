@@ -3,7 +3,7 @@
 An [Apache Hadoop](http://hadoop.apache.org) container image. 
 It's not useful to run a single image, better create a Cluster with Docker Compose or Docker Swarm.
 
-## Setup
+#### Setup
 ```sh
 git config core.eol lf
 git config core.autocrlf input
@@ -45,7 +45,7 @@ docker-compose up --remove-orphans --scale datanode_nodemanager=3
 ```
 A Cluster should contain at least 3 DataNodes/NodeManagers. The new nodes will automatically register themselves with the NameNode. 
 If you wish to increase the number of DataNodes/NodeManagers change the `--scale datanode_nodemanager` **value**  and run the start command again.
-You can run the command multiply times to allow dynamic scaling.
+You can run the command multiply times to achieve dynamic scaling.
 
 ### Connect to NameNode
 ```sh
