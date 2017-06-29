@@ -1,1 +1,0 @@
-docker-compose exec --user hadoop spark bash

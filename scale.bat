@@ -1,1 +1,0 @@
-docker-compose scale datanode=3
