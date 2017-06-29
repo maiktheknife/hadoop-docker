@@ -2,9 +2,7 @@ FROM maiktheknife/spark
 MAINTAINER maiktheknife
 
 # install maven
-RUN yum clean all; \
-    rpm --rebuilddb; \
-    yum install -y maven
+RUN yum install -y maven
 
 # Copy start script
 COPY wordcount /opt/util/app/wordcount

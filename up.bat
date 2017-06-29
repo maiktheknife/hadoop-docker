@@ -1,4 +1,4 @@
-cd hadoop
+cd .\hadoop
 call docker-build.bat
 
 cd ..\spark
