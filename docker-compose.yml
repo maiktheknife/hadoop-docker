@@ -48,8 +48,8 @@ services:
     depends_on:
       - resourcemanager
 
-  testapp:
-    image: maiktheknife/testapp
+  edge:
+    image: maiktheknife/edge
     tty: true # keep container without running main process
     depends_on:
       - spark

@@ -4,7 +4,7 @@ call docker-build.bat
 cd ..\spark
 call docker-build.bat
 
-cd ..\testapp
+cd ..\edge
 call docker-build.bat
 
 cd ..
