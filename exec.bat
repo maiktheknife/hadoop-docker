@@ -1,1 +1,1 @@
-docker-compose exec --user hadoop testapp bash
+docker-compose exec --user hadoop edge bash
