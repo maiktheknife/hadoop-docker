@@ -17,8 +17,10 @@ cd prototyp
 mvn clean package
 
 # run application
-hadoop jar target/hadoop-prototyp-1.0-SNAPSHOT.jar de.menzel.hadoop.temperature.TemperatureAggregator hdfs://namenode:8020/years hdfs://namenode:8020/years_out
+hadoop jar target/hadoop-prototyp-1.0-SNAPSHOT.jar de.menzel.hadoop.temperature.TemperatureAggregator /years /years_out
 
+cd ..
 # get result from HDFS
+rm -rf years_out
 hdfs dfs -get /years_out years_out
 more years_out/part-r-00000
