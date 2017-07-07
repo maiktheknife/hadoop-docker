@@ -67,14 +67,6 @@ This start the Cluster run the following command:
 ```sh
 docker swarm init
 docker stack deploy --compose-file docker-stack.yml ba_stack
- +
- +:: listings
- +docker stack services ba_stack
- +
- +:: logs
- +docker service logs ba_stack_namenode
- +docker service logs ba_stack_datanode
- +docker service logs ba_stack_spark
 ```
 
 ### Check services
