@@ -18,6 +18,7 @@ ENV PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
 # versionless links
 RUN ln -s $SPARK_HOME /usr/local/spark/current
 
+# fix permissions
 RUN chown -R $HADOOP_USER:$HADOOP_USER /usr/local/spark/
 
 # Ports

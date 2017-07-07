@@ -9,6 +9,6 @@ hdfs dfs -ls /inputdir
 # run application
 spark-submit --master yarn --deploy-mode cluster wordcount.py /inputdir/inputfile_new /outputdir
 
-# get result from HDFS
+# get results from HDFS
 hdfs dfs -get /outputdir outputdir
 more outputdir/part-00000
