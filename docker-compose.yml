@@ -5,50 +5,51 @@ services:
     image: maiktheknife/hadoop
     command: start-hadoop namenode
     hostname: namenode
-    networks:
-      - frontend
+    volumes:
+      - /d/docker/hadoop/logs:/usr/local/hadoop/current/logs/
     ports:
-      - 22:22
-      - 8020:8020
-      - 8032:8032
-      - 8033:8033
-      - 8040:8040
-      - 8088:8088
-      - 14000:14000
-      - 50070:50070
-      - 50075:50075
-      - 10020:10020
-      - 13562:13562
-      - 19888:19888
-    deploy:
-      replicas: 1
+      - "8020:8020"
+      - "14000:14000"
+      - "50070:50070"
+      - "50075:50075"
+      - "10020:10020"
+      - "13562:13562"
+      - "19888:19888"
 
-  datanode:
+  resourcemanager:
+    image: maiktheknife/hadoop
+    command: start-hadoop resourcemanager
+    hostname: resourcemanager
+    volumes:
+      - /d/docker/yarn/logs:/usr/local/hadoop/current/logs/
+    ports:
+      - "8032:8032"
+      - "8033:8033"
+      - "8040:8040"
+      - "8088:8088"
+
+  datanode_nodemanager:
     image: maiktheknife/hadoop
     command: start-hadoop datanode
-    networks:
-      - frontend
     depends_on:
       - namenode
-    deploy:
-      mode: replicated
-      replicas: 3
 
   spark:
     image: maiktheknife/spark
     command: start-spark master
     hostname: sparkmaster
-    networks:
-      - frontend
-    depends_on:
-      - namenode
     ports:
-      - 6066:6066
-      - 7070:7070
-      - 8080:8080
-      - 50080:50070
-    deploy:
-      replicas: 1
+      - "6066:6066"
+      - "7070:7070"
+      - "8080:8080"
+      - "50080:50070"
+    volumes:
+      - /d/docker/spark/logs:/usr/local/spark/current/logs/
+    depends_on:
+      - resourcemanager
 
-networks:
-  frontend:
+  edge:
+    image: maiktheknife/edge
+    tty: true # keep container without running main process
+    depends_on:
+      - spark

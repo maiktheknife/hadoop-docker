@@ -1,1 +1,1 @@
-docker-compose exec --user hadoop namenode bash
+docker-compose exec --user hadoop edge bash

@@ -1,68 +1,72 @@
-# Apache Hadoop
+# Apache Hadoop Docker Image
 
 An [Apache Hadoop](http://hadoop.apache.org) container image. 
-This image is meant to be used for creating a standalone cluster with multiple (<= 3) DataNodes.
+It's not useful to run a single image, better create a Cluster with Docker Compose or Docker Swarm.
 
-
-## Setup
+#### Setup
 ```sh
 git config core.eol lf
 git config core.autocrlf input
 ```
+___
 
 ## Custom commands
 This image contains a script named `start-hadoop` (included in the PATH). 
 This script is used to initialize NameNodes, DataNode, ResourceManager and NodeMangers.
+The script supports running as a daemon if the `daemon` argument is passed as the last argument. 
+This is useful when another command must be used or when the image is being used as the base for another image. 
 
-### Starting a NameNode and ResourceManager
+### Starting the NameNode
 To start a NameNode run the following command:
 ```sh
 start-hadoop namenode [daemon]
 ```
-The script supports running as a daemon if the `daemon` argument is passed as the last argument. 
-This is useful when another command must be used or when the image is being used as the base for another image. 
+
+### Starting the ResourceManager
+To start a ResourceManager run the following command:
+```sh
+start-hadoop resourcemanager [daemon]
+```
 
 ### Starting a DataNode and NodeManager
-To start a DataNode run the following command:
+To start a DataNode/NodeManager at the same Container run the following command:
 ```sh
 start-hadoop datanode [daemon]
 ```
-The script supports running as a daemon if the `daemon` argument is passed as the last argument. 
-This is useful when another command must be used or when the image is being used as the base for another image. 
 
+___
 
-## Persistence
-
-The image has a volume mounted at `/opt/hdfs`. To maintain states between restarts, mount a volume at this location.
-This should be done for the NameNode and the DataNodes.
-
-
-## Creating a cluster with Docker Compose
-The easiest way to create a standalone cluster with this image is by using [Docker Compose v3](https://docs.docker.com/compose) with `docker-compose.yml`.
-
-### Scaling
-If you wish to increase the number of DataNodes scale the `datanode` service by running the `scale` command like follows:
-```sh
-docker-compose scale datanode=5
-```
-The DataNodes will automatically register themselves with the NameNode.
-
+## Creating a standalone cluster with Docker Compose
+The easiest way to create a standalone cluster with this image is by using [Docker Compose](https://docs.docker.com/compose) with `docker-compose.yml`.
 ### Start 
-This start the NameNode and  and one DataNodes
+This start the Cluster run the following command:
 ```sh
-docker-compose up --build --remove-orphans --abort-on-container-exit
+docker-compose up --remove-orphans --scale datanode_nodemanager=3
 ```
-Now, scale it up to 3 DataNodes and NodeManagers
-```sh
-docker-compose scale datanode=3
-```
+A Cluster should contain at least 3 DataNodes/NodeManagers. The new nodes will automatically register themselves with the NameNode. 
+If you wish to increase the number of DataNodes/NodeManagers change the `--scale datanode_nodemanager` **value**  and run the start command again.
+You can run the command multiply times to achieve dynamic scaling.
 
 ### Connect to NameNode
 ```sh
 docker-compose exec --user hadoop namenode bash
 ```
 
-### Stop 
+### Stop
+To stop the whole Cluster run the following command:
 ```sh
 docker-compose down --remove-orphans
 ```
+
+___
+
+## Creating a multiple host cluster with Docker Swarm
+
+TODO
+
+___
+
+## Persistence
+
+The image has a volume mounted at `/opt/hdfs`. To maintain states between restarts, mount a volume at this location.
+This should be done for the NameNode and the DataNodes.

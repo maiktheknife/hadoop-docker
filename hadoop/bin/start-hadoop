@@ -8,17 +8,18 @@ if [[ -z "${HADOOP_USER}" ]]; then
   exit 1
 fi
 
-chown -R $HADOOP_USER:$HADOOP_USER /opt/hdfs
-chown -R $HADOOP_USER:$HADOOP_USER /usr/local/hadoop
+# FIX permissions if necessary
+find /opt/hdfs/ -not -user $HADOOP_USER -execdir chown $HADOOP_USER:$HADOOP_USER {} \+
+find /usr/local/hadoop -not -user $HADOOP_USER -execdir chown $HADOOP_USER:$HADOOP_USER {} \+
 
 # Select node type
 if [[ "${1}" = 'namenode' ]]; then
   su $HADOOP_USER -c "/opt/util/bin/start-hadoop-namenode $2"
 elif [[ "${1}" =  'datanode' ]]; then
   su $HADOOP_USER -c "/opt/util/bin/start-hadoop-datanode $2"
+elif [[ "${1}" = 'resourcemanager' ]]; then
+  su $HADOOP_USER -c "/opt/util/bin/start-hadoop-resourcemanager $2"
 else
   echo "Invalid command '${1}'" >&2
   exit 1
 fi
-
-echo "run start-hadoop done"

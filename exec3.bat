@@ -1,1 +1,0 @@
-docker-compose exec --user hadoop --index=3 datanode bash

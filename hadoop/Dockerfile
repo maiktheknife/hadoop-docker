@@ -3,7 +3,7 @@ MAINTAINER maiktheknife
 
 # JAVA
 ENV JAVA_HOME=/etc/alternatives/jre_1.8.0_openjdk
-ENV PATH=$PATH:JAVA_HOME/bin
+ENV PATH=$PATH:$JAVA_HOME/bin
 
 # Version
 ENV HADOOP_VERSION=2.8.0
@@ -15,7 +15,7 @@ ENV HADOOP_HOME=/usr/local/hadoop/hadoop-$HADOOP_VERSION
 # Install dev tools
 RUN yum clean all; \
     rpm --rebuilddb; \
-    yum install -y curl which tar sudo openssh-server openssh-clients rsync nc maven
+    yum install -y curl which tar sudo openssh-server openssh-clients rsync nc
 
 # Update libselinux
 RUN yum update -y libselinux
@@ -41,10 +41,6 @@ ENV PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
 
 # Copy and fix configuration files
 COPY /conf/*.xml $HADOOP_CONF_DIR/
-RUN sed -i.bak "s/hadoop-daemons.sh/hadoop-daemon.sh/g" $HADOOP_HOME/sbin/start-dfs.sh \
-  && rm -f $HADOOP_HOME/sbin/start-dfs.sh.bak \
-  && sed -i.bak "s/hadoop-daemons.sh/hadoop-daemon.sh/g" $HADOOP_HOME/sbin/stop-dfs.sh \
-  && rm -f $HADOOP_HOME/sbin/stop-dfs.sh.bak
 
 # HDFS
 EXPOSE 8020 14000 50070 50470
@@ -55,18 +51,14 @@ EXPOSE 10020 13562 19888
 # YARN
 EXPOSE 22 8032 8033 8042 8088
 
-# Copy start scripts and data
+# Copy start scripts
 COPY bin /opt/util/bin
-COPY app /opt/util/app
 ENV PATH=$PATH:/opt/util/bin
 
 # Fix permissions
-#RUN mkdir -p /opt/hdfs
-#RUN chown -R $HADOOP_USER:$HADOOP_USER $HADOOP_HOME
-#RUN chown -R $HADOOP_USER:$HADOOP_USER /opt/hdfs
-RUN chown -R $HADOOP_USER:$HADOOP_USER /opt/util/app
-
-WORKDIR /opt/util/app
+RUN mkdir -p /opt/hdfs
+RUN chown -R $HADOOP_USER:$HADOOP_USER /usr/local/hadoop/
+RUN chown -R $HADOOP_USER:$HADOOP_USER /opt/hdfs
 
 # passwordless ssh
 RUN mkdir -p /home/$HADOOP_USER/.ssh
@@ -77,11 +69,4 @@ RUN cp /home/$HADOOP_USER/.ssh/id_rsa.pub /home/$HADOOP_USER/.ssh/authorized_key
 
 ADD ssh_config /home/$HADOOP_USER/.ssh/config
 RUN chmod 600 /home/$HADOOP_USER/.ssh/config
-RUN chown $HADOOP_USER.$HADOOP_USER /home/$HADOOP_USER/.ssh/config
-
-# Fix environment for other users
-#RUN echo "export HADOOP_HOME=$HADOOP_HOME" > /etc/bashrc.tmp \
-#    && echo "export HADOOP_USER=$HADOOP_USER" > /etc/bashrc.tmp \
-#    && echo "export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:/opt/util/bin" >> /etc/bashrc.tmp \
-#    && cat /etc/bashrc >> /etc/bashrc.tmp \
-#    && mv -f /etc/bashrc.tmp /etc/bashrc
+RUN chown $HADOOP_USER:$HADOOP_USER /home/$HADOOP_USER/.ssh/config

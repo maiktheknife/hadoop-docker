@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # Set default HDFS user if not set
-if [[ -z "${HDFS_USER}" ]]; then
-  export HDFS_USER=spark
+if [[ -z "${HADOOP_USER}" ]]; then
+  export HADOOP_USER=hadoop
 fi
 
 if [[ "${1}" = 'master' ]]; then
