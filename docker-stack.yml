@@ -16,13 +16,13 @@ services:
       - "13562:13562"
       - "19888:19888"
     deploy:
-      replicas: 1
+      mode: global
 
   resourcemanager:
     image: maiktheknife/hadoop
     command: start-hadoop resourcemanager
     hostname: resourcemanager
-    network:
+    networks:
       - backend
     ports:
       - "8032:8032"
@@ -30,7 +30,7 @@ services:
       - "8040:8040"
       - "8088:8088"
     deploy:
-      replicas: 1
+      mode: global
 
   datanode:
     image: maiktheknife/hadoop
@@ -57,7 +57,7 @@ services:
       - "8080:8080"
       - "50080:50070"
     deploy:
-      replicas: 1
+      mode: global
 
   edge:
     image: maiktheknife/edge

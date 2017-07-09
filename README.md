@@ -77,7 +77,13 @@ docker stack services ba_stack
 # logs
 docker service logs ba_stack_namenode
 docker service logs ba_stack_datanode
+docker service logs ba_stack_resourcemanager 
 docker service logs ba_stack_spark
+```
+
+### Connect
+```sh
+docker exec -it --user hadoop <ContinerID> bash
 ```
 
 ### Stop
