@@ -1,5 +1,5 @@
-FROM maiktheknife/hadoop
-MAINTAINER maiktheknife
+FROM ba/hadoop
+MAINTAINER Max Menzel
 
 # Version
 ENV SPARK_VERSION=2.1.1

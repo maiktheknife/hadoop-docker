@@ -1,1 +1,1 @@
-docker build -t maiktheknife/hadoop .
+docker build -t ba/hadoop .

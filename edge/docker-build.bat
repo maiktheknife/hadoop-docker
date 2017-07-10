@@ -1,1 +1,1 @@
-docker build -t maiktheknife/edge .
+docker build -t ba/edge .

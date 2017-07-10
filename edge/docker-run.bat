@@ -1,1 +1,1 @@
-docker run -it maiktheknife/edge
+docker run -it ba/edge

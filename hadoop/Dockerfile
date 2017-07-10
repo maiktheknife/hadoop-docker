@@ -1,5 +1,5 @@
-FROM  nimmis/java-centos:openjdk-8-jdk
-MAINTAINER maiktheknife
+FROM nimmis/java-centos:openjdk-8-jdk
+MAINTAINER Max Menzel
 
 # JAVA
 ENV JAVA_HOME=/etc/alternatives/jre_1.8.0_openjdk

@@ -1,5 +1,5 @@
-FROM maiktheknife/spark
-MAINTAINER maiktheknife
+FROM ba/spark
+MAINTAINER Max Menzel
 
 # install maven
 RUN yum install -y maven
