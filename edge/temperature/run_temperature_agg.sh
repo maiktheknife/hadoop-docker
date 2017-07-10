@@ -17,7 +17,7 @@ cd prototyp
 mvn clean package
 
 # run application
-hadoop jar target/hadoop-prototyp-1.0-SNAPSHOT.jar de.menzel.hadoop.temperature.TemperatureAggregator /years /years_out
+yarn jar target/hadoop-prototyp-1.0-SNAPSHOT.jar de.menzel.hadoop.temperature.TemperatureAggregator /years /years_out
 
 cd ..
 # get results from HDFS

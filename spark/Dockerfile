@@ -1,5 +1,5 @@
-FROM maiktheknife/hadoop
-MAINTAINER maiktheknife
+FROM ba/hadoop
+MAINTAINER Max Menzel
 
 # Version
 ENV SPARK_VERSION=2.1.1
@@ -24,6 +24,5 @@ RUN chown -R $HADOOP_USER:$HADOOP_USER /usr/local/spark/
 # Ports
 EXPOSE 6066 7077 8080 8081
 
-# Copy start script
-COPY bin /opt/util/bin
+# Copy config
 COPY conf $SPARK_HOME/conf/

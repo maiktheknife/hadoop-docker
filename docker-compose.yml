@@ -2,7 +2,7 @@ version: "3"
 
 services:
   namenode:
-    image: maiktheknife/hadoop
+    image: ba/hadoop
     command: start-hadoop namenode
     hostname: namenode
     volumes:
@@ -17,7 +17,7 @@ services:
       - "19888:19888"
 
   resourcemanager:
-    image: maiktheknife/hadoop
+    image: ba/hadoop
     command: start-hadoop resourcemanager
     hostname: resourcemanager
     volumes:
@@ -29,27 +29,14 @@ services:
       - "8088:8088"
 
   datanode_nodemanager:
-    image: maiktheknife/hadoop
+    image: ba/hadoop
     command: start-hadoop datanode
     depends_on:
+      - resourcemanager
       - namenode
 
-  spark:
-    image: maiktheknife/spark
-    command: start-spark master
-    hostname: sparkmaster
-    ports:
-      - "6066:6066"
-      - "7070:7070"
-      - "8080:8080"
-      - "50080:50070"
-    volumes:
-      - /d/docker/spark/logs:/usr/local/spark/current/logs/
-    depends_on:
-      - resourcemanager
-
   edge:
-    image: maiktheknife/edge
+    image: ba/edge
     tty: true # keep container without running main process
     depends_on:
-      - spark
+      - resourcemanager

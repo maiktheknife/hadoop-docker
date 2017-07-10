@@ -1,1 +1,1 @@
-docker build -t maiktheknife/spark .
+docker build -t ba/spark .

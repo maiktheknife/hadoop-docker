@@ -1,1 +1,1 @@
-docker run -it maiktheknife/hadoop
+docker run -it ba/hadoop
