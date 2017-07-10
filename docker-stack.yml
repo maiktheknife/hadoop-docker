@@ -2,7 +2,7 @@ version: "3"
 
 services:
   namenode:
-    image: maiktheknife/hadoop
+    image: ba/hadoop
     command: start-hadoop namenode
     hostname: namenode
     networks:
@@ -19,7 +19,7 @@ services:
       mode: global
 
   resourcemanager:
-    image: maiktheknife/hadoop
+    image: ba/hadoop
     command: start-hadoop resourcemanager
     hostname: resourcemanager
     networks:
@@ -33,7 +33,7 @@ services:
       mode: global
 
   datanode_nodemanager:
-    image: maiktheknife/hadoop
+    image: ba/hadoop
     command: start-hadoop datanode
     networks:
       - backend
@@ -45,7 +45,7 @@ services:
       replicas: 3
 
   edge:
-    image: maiktheknife/edge
+    image: ba/edge
     tty: true # keep container without running main process
     networks:
       - backend
