@@ -32,32 +32,17 @@ services:
     deploy:
       mode: global
 
-  datanode:
+  datanode_nodemanager:
     image: maiktheknife/hadoop
     command: start-hadoop datanode
     networks:
       - backend
     depends_on:
+      - resourcemanager
       - namenode
     deploy:
       mode: replicated
       replicas: 3
-
-  spark:
-    image: maiktheknife/spark
-    command: start-spark master
-    hostname: sparkmaster
-    networks:
-      - backend
-    depends_on:
-      - namenode
-    ports:
-      - "6066:6066"
-      - "7070:7070"
-      - "8080:8080"
-      - "50080:50070"
-    deploy:
-      mode: global
 
   edge:
     image: maiktheknife/edge
@@ -66,7 +51,7 @@ services:
       - backend
       - frontend
     depends_on:
-      - spark
+      - resourcemanager
 
 networks:
   frontend:

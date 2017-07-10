@@ -32,24 +32,11 @@ services:
     image: maiktheknife/hadoop
     command: start-hadoop datanode
     depends_on:
-      - namenode
-
-  spark:
-    image: maiktheknife/spark
-    command: start-spark master
-    hostname: sparkmaster
-    ports:
-      - "6066:6066"
-      - "7070:7070"
-      - "8080:8080"
-      - "50080:50070"
-    volumes:
-      - /d/docker/spark/logs:/usr/local/spark/current/logs/
-    depends_on:
       - resourcemanager
+      - namenode
 
   edge:
     image: maiktheknife/edge
     tty: true # keep container without running main process
     depends_on:
-      - spark
+      - resourcemanager
