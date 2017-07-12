@@ -1,9 +1,6 @@
 cd .\hadoop
 call docker-build.bat
 
-cd ..\spark
-call docker-build.bat
-
 cd ..\edge
 call docker-build.bat
 
