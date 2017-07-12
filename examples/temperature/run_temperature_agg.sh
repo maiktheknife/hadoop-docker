@@ -19,9 +19,10 @@ mvn clean package
 # run application
 yarn jar target/hadoop-prototyp-1.0-SNAPSHOT.jar de.menzel.hadoop.temperature.TemperatureAggregator /years /years_out
 
-# get results from HDFS
+# check status
 hdfs dfs -test -e /years_out/_SUCCESS
 success=$(echo $?)
 echo "Success '$success'"
 
+# get results from HDFS
 hdfs dfs -tail /years_out/part-r-00000
