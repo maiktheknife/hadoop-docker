@@ -2,7 +2,6 @@ FROM ba/hadoop
 MAINTAINER Max Menzel
 
 ## install spark
-
 # Version
 ENV SPARK_VERSION=2.1.1
 
@@ -29,11 +28,7 @@ EXPOSE 6066 7077 8080 8081
 # Copy config
 COPY conf $SPARK_HOME/conf/
 
-## other
-
-# install maven
-RUN yum install -y maven
-
+## Other
 # create workdir
 RUN mkdir -p /opt/util/app
 RUN chown -R $HADOOP_USER:$HADOOP_USER /opt/util/app

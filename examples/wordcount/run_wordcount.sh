@@ -9,10 +9,12 @@ hdfs dfs -ls /inputdir
 # run application
 spark-submit --master yarn --deploy-mode cluster wordcount.py /inputdir/inputfile_new /outputdir
 
-# check status
+# check status and read results
 hdfs dfs -test -e /outputdir/_SUCCESS
-success=$(echo $?)
-echo "Success '$success'"
-
-# get results from HDFS
-hdfs dfs -tail /outputdir/part-00000
+if [ $? = 0 ]
+then
+    echo "Success, get results"
+    hdfs dfs -tail /outputdir/part-00000
+else
+    echo "Error, no results to read"
+fi
