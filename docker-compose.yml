@@ -4,7 +4,6 @@ services:
   namenode:
     image: ba/hadoop
     command: start-hadoop namenode
-    hostname: namenode
     volumes:
       - /d/docker/hadoop/logs:/usr/local/hadoop/current/logs/
     ports:
@@ -19,7 +18,6 @@ services:
   resourcemanager:
     image: ba/hadoop
     command: start-hadoop resourcemanager
-    hostname: resourcemanager
     volumes:
       - /d/docker/yarn/logs:/usr/local/hadoop/current/logs/
     ports:
