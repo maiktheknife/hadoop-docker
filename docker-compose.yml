@@ -5,6 +5,10 @@ services:
     image: ba/hadoop
     command: start-hadoop namenode
     hostname: namenode
+#    networks:
+#      - backend
+#    volumes:
+#      - hdfs:/opt/hdfs
     volumes:
       - /d/docker/hadoop/logs:/usr/local/hadoop/current/logs/
     ports:
@@ -20,6 +24,10 @@ services:
     image: ba/hadoop
     command: start-hadoop resourcemanager
     hostname: resourcemanager
+#    networks:
+#      - backend
+#    volumes:
+#      - hdfs:/opt/hdfs
     volumes:
       - /d/docker/yarn/logs:/usr/local/hadoop/current/logs/
     ports:
@@ -31,6 +39,8 @@ services:
   datanode_nodemanager:
     image: ba/hadoop
     command: start-hadoop datanode
+#    networks:
+#      - backend
     depends_on:
       - resourcemanager
       - namenode
@@ -38,5 +48,15 @@ services:
   edge:
     image: ba/edge
     tty: true # keep container without running main process
+#    networks:
+#      - backend
+#      - frontend
     depends_on:
       - resourcemanager
+#
+#volumes:
+#  hdfs:
+
+#networks:
+#  frontend:
+#  backend:

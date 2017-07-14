@@ -1,2 +1,2 @@
-call down.bat
+call stop.bat
 call up.bat
