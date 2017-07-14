@@ -4,7 +4,6 @@ services:
   namenode:
     image: ba/hadoop
     command: start-hadoop namenode
-    hostname: namenode
 #    networks:
 #      - backend
 #    volumes:
@@ -23,7 +22,6 @@ services:
   resourcemanager:
     image: ba/hadoop
     command: start-hadoop resourcemanager
-    hostname: resourcemanager
 #    networks:
 #      - backend
 #    volumes:
