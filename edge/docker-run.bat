@@ -1,1 +1,0 @@
-docker run -it ba/edge
