@@ -4,8 +4,8 @@ services:
   namenode:
     image: ba/hadoop
     command: start-hadoop namenode
-#    networks:
-#      - backend
+    networks:
+      - backend
 #    volumes:
 #      - hdfs:/opt/hdfs
     volumes:
@@ -22,8 +22,8 @@ services:
   resourcemanager:
     image: ba/hadoop
     command: start-hadoop resourcemanager
-#    networks:
-#      - backend
+    networks:
+      - backend
 #    volumes:
 #      - hdfs:/opt/hdfs
     volumes:
@@ -37,8 +37,8 @@ services:
   datanode_nodemanager:
     image: ba/hadoop
     command: start-hadoop datanode
-#    networks:
-#      - backend
+    networks:
+      - backend
     depends_on:
       - resourcemanager
       - namenode
@@ -46,15 +46,15 @@ services:
   edge:
     image: ba/edge
     tty: true # keep container without running main process
-#    networks:
-#      - backend
-#      - frontend
+    networks:
+      - backend
+      - frontend
     depends_on:
       - resourcemanager
 #
 #volumes:
 #  hdfs:
 
-#networks:
-#  frontend:
-#  backend:
+networks:
+  frontend:
+  backend:

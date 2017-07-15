@@ -26,3 +26,21 @@ logs:
 
 clean:
 	docker system prune -f
+
+swarm_up: build
+	docker swarm init
+	docker stack deploy --compose-file docker-stack.yml ba_stack
+
+swarm_down:
+	docker stack rm ba_stack
+	docker swarm leave --force
+
+swarm_restart: start_down swarm_up
+
+swarm_ps:
+	docker stack services ba_stack
+
+swarm_logs:
+	docker service logs ba_stack_namenode
+	docker service logs ba_stack_resourcemanager
+	docker service logs ba_stack_datanode_nodemanager
