@@ -43,6 +43,9 @@ services:
     deploy:
       mode: replicated
       replicas: 3
+#      placement:
+#        constraints:
+#          - node.labels.hadoop_node_type == datanode
 
   edge:
     image: ba/edge
