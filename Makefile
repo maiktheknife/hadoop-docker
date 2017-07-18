@@ -35,7 +35,7 @@ swarm_down:
 	docker stack rm ba_stack
 	docker swarm leave --force
 
-swarm_restart: start_down swarm_up
+swarm_restart: swarm_down swarm_up
 
 swarm_ps:
 	docker stack services ba_stack
