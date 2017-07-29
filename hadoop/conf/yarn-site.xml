@@ -43,4 +43,22 @@
         <name>yarn.nodemanager.vmem-check-enabled</name>
         <value>false</value>
     </property>
+
+    <property>
+        <description>The class to use as scheduled requests.</description>
+        <name>yarn.resourcemanager.scheduled.requests.class</name>
+        <value>org.apache.hadoop.mapreduce.v2.app.rm.ScheduledRequestsWithNodeGroup</value>
+    </property>
+    <property>
+        <description> The boolean value to identify if the cluster is deployed on an environment which needs an additional layer (node group) between node and rack for network topology.
+        </description>
+        <name>net.topology.with.nodegroup</name>
+        <value>true</value>
+    </property>
+    <property>
+        <description>The class to use as AbstractSchedulerElementsFactory in RM scheduler.</description>
+        <name>yarn.resourcemanager.scheduler.elements.factory.impl</name>
+        <value>org.apache.hadoop.yarn.server.resourcemanager.scheduler.SchedulerElementsFactoryWithNodeGroup</value>
+    </property>
+
 </configuration>

@@ -19,4 +19,23 @@
         <name>fs.defaultFS</name>
         <value>hdfs://namenode:8020</value>
     </property>
+
+    <!--HVE-->
+    <property>
+        <name>topology.script.file.name</name>
+        <value>/opt/util/bin/topology.sh</value><!-- point to topology.sh location.-->
+    </property>
+    <property>
+        <name>net.topology.impl</name>
+        <value>org.apache.hadoop.net.NetworkTopologyWithNodeGroup</value>
+    </property>
+    <property>
+        <name>net.topology.nodegroup.aware</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>dfs.block.replicator.classname</name>
+        <value>org.apache.hadoop.hdfs.server.blockmanagement.BlockPlacementPolicyWithNodeGroup</value>
+    </property>
+
 </configuration>
