@@ -6,7 +6,7 @@ ENV JAVA_HOME=/etc/alternatives/jre_1.8.0_openjdk
 ENV PATH=$PATH:$JAVA_HOME/bin
 
 # Version
-ENV HADOOP_VERSION=2.8.0
+ENV HADOOP_VERSION=2.8.1
 ENV HADOOP_USER=hadoop
 
 # Set home
