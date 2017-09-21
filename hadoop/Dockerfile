@@ -15,7 +15,7 @@ ENV HADOOP_HOME=/usr/local/hadoop/hadoop-$HADOOP_VERSION
 # Install dev tools
 RUN yum clean all; \
     rpm --rebuilddb; \
-    yum install -y curl which tar sudo openssh-server openssh-clients rsync nc
+    yum install -y curl which tar sudo openssh-server openssh-clients rsync nc netstat less
 
 # Update libselinux
 RUN yum update -y libselinux
