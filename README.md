@@ -52,6 +52,11 @@ You can run the command multiply times to achieve dynamic scaling.
 docker-compose exec --user hadoop namenode bash
 ```
 
+### Visit
+[Hadoop Web UI](http://localhost:50070/)
+
+[YARN Web UI](http://localhost:8088/cluster)
+
 ### Stop
 To stop the whole Cluster run the following command:
 ```sh

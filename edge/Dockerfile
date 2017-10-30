@@ -3,7 +3,7 @@ MAINTAINER Max Menzel
 
 ## install spark
 # Version
-ENV SPARK_VERSION=2.1.1
+ENV SPARK_VERSION=2.1.2
 
 # Set home
 ENV SPARK_HOME=/usr/local/spark/spark-$SPARK_VERSION
@@ -11,7 +11,7 @@ ENV SPARK_HOME=/usr/local/spark/spark-$SPARK_VERSION
 # Install Spark
 RUN mkdir -p "${SPARK_HOME}" \
   && export ARCHIVE=spark-$SPARK_VERSION-bin-without-hadoop.tgz \
-  && curl -s http://www.eu.apache.org/dist/spark/spark-$SPARK_VERSION/$ARCHIVE | tar -xz -C $SPARK_HOME --strip-components 1 \
+  && curl -s https://mirrors.ocf.berkeley.edu/apache/spark/spark-$SPARK_VERSION/$ARCHIVE | tar -xz -C $SPARK_HOME --strip-components 1 \
   && rm -rf $ARCHIVE
 
 ENV PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin

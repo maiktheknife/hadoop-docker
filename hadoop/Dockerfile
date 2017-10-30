@@ -23,7 +23,7 @@ RUN yum update -y libselinux
 # Install Hadoop
 RUN mkdir -p "${HADOOP_HOME}" \
   && export ARCHIVE=hadoop-$HADOOP_VERSION.tar.gz \
-  && curl -s http://www.eu.apache.org/dist/hadoop/common/hadoop-$HADOOP_VERSION/$ARCHIVE | tar -xz -C $HADOOP_HOME --strip-components 1 \
+  && curl -s https://mirrors.ocf.berkeley.edu/apache/hadoop/common/hadoop-$HADOOP_VERSION/$ARCHIVE | tar -xz -C $HADOOP_HOME --strip-components 1 \
   && rm -rf $ARCHIVE
 
 # versionless links
