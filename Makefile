@@ -8,10 +8,11 @@ up: build
 exc:
 	docker cp examples/temperature hadoopdocker_edge_1:/opt/util/app/temperature
 	docker cp examples/wordcount hadoopdocker_edge_1:/opt/util/app/wordcount
-
 	docker-compose exec edge bash -c "chown -R hadoop:hadoop /opt/util/app"
-
 	docker-compose exec --user hadoop edge bash
+
+stop:
+	docker-compose stop
 
 down:
 	docker-compose down --remove-orphans

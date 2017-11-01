@@ -6,10 +6,8 @@ services:
     command: start-hadoop namenode
     networks:
       - backend
-#    volumes:
-#      - hdfs:/opt/hdfs
     volumes:
-      - /d/docker/hadoop/logs:/usr/local/hadoop/current/logs/
+      - hdfs:/opt/hdfs
     ports:
       - "8020:8020"
       - "14000:14000"
@@ -24,10 +22,8 @@ services:
     command: start-hadoop resourcemanager
     networks:
       - backend
-#    volumes:
-#      - hdfs:/opt/hdfs
     volumes:
-      - /d/docker/yarn/logs:/usr/local/hadoop/current/logs/
+      - hdfs:/opt/hdfs
     ports:
       - "8032:8032"
       - "8033:8033"
@@ -51,9 +47,9 @@ services:
       - frontend
     depends_on:
       - resourcemanager
-#
-#volumes:
-#  hdfs:
+
+volumes:
+  hdfs:
 
 networks:
   frontend:
