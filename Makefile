@@ -17,7 +17,7 @@ stop:
 down:
 	docker-compose down --remove-orphans
 
-restart: down up
+restart: stop up
 
 ps:
 	docker-compose ps
